@@ -8,12 +8,17 @@ class TextState extends State {
     public static $CLASS = __CLASS__;
 
     public function onLessThan($char) {
-        $this->buffer->text .= $char;
+        $element = new Text($this->buffer->text);
+        $this->buffer->element->getChildren()->append($element);
+        $this->buffer->potentialParents[] = $element;
+        $this->buffer->text = $char;
         return BeginState::$CLASS;
     }
 
     public function onEndOfInput($char) {
-        $this->buffer->element->getChildren()->append(new Text($this->buffer->text));
+        $element = new Text($this->buffer->text);
+        $this->buffer->element->getChildren()->append($element);
+        $this->buffer->potentialParents[] = $element;
         return TextState::$CLASS;
     }
 

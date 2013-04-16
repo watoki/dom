@@ -75,28 +75,46 @@ class Test_Then {
     public function theResultShouldBe($json) {
         $results = array();
         foreach ($this->test->when->nodes as $node) {
-            if ($node instanceof Text) {
-                $results[] = array('content' => $node->getContent());
-            } else if ($node instanceof Element) {
-                $result = array(
-                    'name' => $node->getName()
-                );
-
-                if (!$node->getAttributes()->isEmpty()) {
-                    $attributes = array();
-                    foreach ($node->getAttributes() as $key => $value) {
-                        $attributes[] = array(
-                            'name' => $key,
-                            'value' => $value
-                        );
-                    }
-                    $result['attributes'] = $attributes;
-                }
-
-                $results[] = $result;
-            }
+            $results[] = $this->convertNode($node);
         }
         $this->test->assertEquals(json_decode($json, true), $results);
+    }
+
+    /**
+     * @param $node
+     * @return array
+     */
+    private function convertNode($node) {
+        if ($node instanceof Text) {
+            return array('content' => $node->getContent());
+        } else if ($node instanceof Element) {
+            $result = array(
+                'name' => $node->getName()
+            );
+
+            if (!$node->getAttributes()->isEmpty()) {
+                $attributes = array();
+                foreach ($node->getAttributes() as $key => $value) {
+                    $attributes[] = array(
+                        'name' => $key,
+                        'value' => $value
+                    );
+                }
+                $result['attributes'] = $attributes;
+            }
+
+            if (!$node->getChildren()->isEmpty()) {
+                $children = array();
+                foreach ($node->getChildren() as $child) {
+                    $children[] = $this->convertNode($child);
+                }
+                $result['children'] = $children;
+            }
+
+            return $result;
+        }
+
+        throw new \Exception;
     }
 
     public function anExceptionShouldBeThrownContaining($msg) {

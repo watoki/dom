@@ -19,7 +19,7 @@ class NameState extends State {
         $this->buffer->element->getChildren()->append($element);
         $this->buffer->text = '';
         $this->buffer->name = '';
-        $this->buffer->potentialParent = $element;
+        $this->buffer->potentialParents[] = $element;
         return NullState::$CLASS;
     }
 

@@ -3,7 +3,7 @@ namespace spec\watoki\dom;
 
 class ParseChildrenTest extends Test {
 
-    function testOnlyChild() {
+    function testChildren() {
         $this->when->iParse('<father><son><daughter></father>');
         $this->then->theResultShouldBe('[
             {   "name":"father",
@@ -27,20 +27,13 @@ class ParseChildrenTest extends Test {
     }
 
     function testGrandChild() {
-        $this->when->iParse('<one><two><three><four><five></three><a></two></one>');
+        $this->when->iParse('<one><two><three></two></one>');
         $this->then->theResultShouldBe('[
             {   "name":"one",
                 "children":[
                     {   "name":"two",
                         "children":[
-                            {   "name":"three",
-                                "children":[
-                                    { "name":"four" },
-                                    { "name":"five" }
-                                ]
-                            },
-                            {   "name":"a"
-                            }
+                            { "name":"three" }
                         ]
                     }
                 ]

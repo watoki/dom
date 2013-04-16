@@ -14,9 +14,9 @@ class Buffer {
     public $element;
 
     /**
-     * @var Element
+     * @var array|Element[]
      */
-    public $potentialParent;
+    public $potentialParents = array();
 
     public $text = '';
 
