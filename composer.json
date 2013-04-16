@@ -1,0 +1,26 @@
+{
+    "name": "watoki/dom",
+    "description": "A minimal (X)HTML/XML parser for PHP",
+    "keywords": ["parser", "watoki"],
+    "homepage": "http://github.com/watoki/dom",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nikolas Martens",
+            "email": "Nikolas.M@rtens.org",
+            "homepage": "http://rtens.org"
+        }
+    ],
+    "require": {
+        "watoki/collections":"*",
+        "php": ">=5.3.8"
+    },
+    "autoload": {
+        "psr-0": {
+            "watoki\\dom": "src/",
+            "spec\\watoki\\dom": ""
+        }
+    },
+    "minimum-stability": "dev"
+}
