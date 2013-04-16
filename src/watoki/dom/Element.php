@@ -2,6 +2,7 @@
 namespace watoki\dom;
  
 use watoki\collections\Liste;
+use watoki\collections\Map;
 use watoki\collections\events\ListCreateEvent;
 
 class Element extends Node {
@@ -10,10 +11,13 @@ class Element extends Node {
 
     private $name;
 
+    private $attributes;
+
     private $children;
 
-    function __construct($name) {
+    function __construct($name, Map $attributes = null) {
         $this->name = $name;
+        $this->attributes = $attributes ?: new Map();
         $this->children = new Liste();
 
         $that = $this;
@@ -33,6 +37,13 @@ class Element extends Node {
 
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * @return Map
+     */
+    public function getAttributes() {
+        return $this->attributes;
     }
 
 }

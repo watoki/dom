@@ -73,17 +73,30 @@ class Test_Then {
     }
 
     public function theResultShouldBe($json) {
-        $result = array();
+        $results = array();
         foreach ($this->test->when->nodes as $node) {
             if ($node instanceof Text) {
-                $result[] = array('content' => $node->getContent());
+                $results[] = array('content' => $node->getContent());
             } else if ($node instanceof Element) {
-                $result[] = array(
+                $result = array(
                     'name' => $node->getName()
                 );
+
+                if (!$node->getAttributes()->isEmpty()) {
+                    $attributes = array();
+                    foreach ($node->getAttributes() as $key => $value) {
+                        $attributes[] = array(
+                            'name' => $key,
+                            'value' => $value
+                        );
+                    }
+                    $result['attributes'] = $attributes;
+                }
+
+                $results[] = $result;
             }
         }
-        $this->test->assertEquals(json_decode($json, true), $result);
+        $this->test->assertEquals(json_decode($json, true), $results);
     }
 
     public function anExceptionShouldBeThrownContaining($msg) {
