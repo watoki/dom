@@ -1,6 +1,7 @@
 <?php
 namespace watoki\dom\fsm;
  
+use watoki\dom\Element;
 use watoki\dom\Text;
 
 class ElementState extends State {
@@ -13,9 +14,22 @@ class ElementState extends State {
         return BeginState::$CLASS;
     }
 
+    public function onGreaterThan($char) {
+        $element = new Element($this->buffer->name, $this->buffer->attributes);
+        $this->buffer->element->getChildren()->append($element);
+        $this->buffer->text = '';
+        $this->buffer->name = '';
+        $this->buffer->potentialParent = $element;
+        return NullState::$CLASS;
+    }
+
     public function onOther($char) {
         $this->buffer->text .= $char;
         $this->buffer->attributeName = $char;
         return AttributeNameState::$CLASS;
+    }
+
+    public function onWhiteSpace($char) {
+        return self::$CLASS;
     }
 }

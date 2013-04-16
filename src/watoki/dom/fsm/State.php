@@ -25,11 +25,23 @@ abstract class State {
         return $this->onOther($char);
     }
 
-    public function onSpace($char) {
+    public function onWhiteSpace($char) {
         return $this->onOther($char);
     }
 
     public function onEndOfInput($char) {
+        return $this->onOther($char);
+    }
+
+    public function onDoubleQuote($char) {
+        return $this->onOther($char);
+    }
+
+    public function onSingleQuote($char) {
+        return $this->onOther($char);
+    }
+
+    public function onEquals($char) {
         return $this->onOther($char);
     }
 

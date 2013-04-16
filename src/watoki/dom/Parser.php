@@ -60,8 +60,17 @@ class Parser {
                 return $state->onGreaterThan($char);
             case '/':
                 return $state->onSlash($char);
+            case '"':
+                return $state->onDoubleQuote($char);
+            case "'":
+                return $state->onSingleQuote($char);
+            case '=':
+                return $state->onEquals($char);
             case ' ':
-                return $state->onSpace($char);
+            case "\n":
+            case "\r":
+            case "\t":
+                return $state->onWhiteSpace($char);
             case null:
                 return $state->onEndOfInput($char);
             default:

@@ -16,7 +16,20 @@ class ParseAttributeTest extends Test {
         ]');
     }
 
-    function testWithValue() {
+    function testNoQuotes() {
+        $this->when->iParse("<none some=thing>");
+        $this->then->theResultShouldBe('[
+            {   "name":"none",
+                "attributes":[
+                    {   "name":"some",
+                        "value":"thing"
+                    }
+                ]
+            }
+        ]');
+    }
+
+    function testDoubleQuotes() {
         $this->when->iParse('<hasvalue value="something">');
         $this->then->theResultShouldBe('[
             {   "name":"hasvalue",
@@ -46,19 +59,6 @@ class ParseAttributeTest extends Test {
         $this->when->iParse("<single some='thing'>");
         $this->then->theResultShouldBe('[
             {   "name":"single",
-                "attributes":[
-                    {   "name":"some",
-                        "value":"thing"
-                    }
-                ]
-            }
-        ]');
-    }
-
-    function testNoQuotes() {
-        $this->when->iParse("<none some=thing>");
-        $this->then->theResultShouldBe('[
-            {   "name":"none",
                 "attributes":[
                     {   "name":"some",
                         "value":"thing"

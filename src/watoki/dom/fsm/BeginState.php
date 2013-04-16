@@ -9,7 +9,7 @@ class BeginState extends State {
         return ClosingState::$CLASS;
     }
 
-    public function onSpace($char) {
+    public function onWhiteSpace($char) {
         $this->buffer->text .= $char;
         return TextState::$CLASS;
     }

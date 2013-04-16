@@ -18,6 +18,10 @@ class AttributeNameState extends State {
         return EndState::$CLASS;
     }
 
+    public function onEquals($char) {
+        return AttributeValueState::$CLASS;
+    }
+
     public function onOther($char) {
         $this->buffer->attributeName .= $char;
         return self::$CLASS;

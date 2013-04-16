@@ -27,7 +27,7 @@ class NameState extends State {
         return EndState::$CLASS;
     }
 
-    public function onSpace($char) {
+    public function onWhiteSpace($char) {
         $this->buffer->text .= $char;
         return ElementState::$CLASS;
     }
