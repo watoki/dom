@@ -33,10 +33,10 @@ class NameState extends State {
     }
 
     public function onEndOfInput($char) {
-        return $this->onElse($char);
+        return $this->onOther($char);
     }
 
-    public function onElse($char) {
+    public function onOther($char) {
         $this->buffer->text .= $char;
         $this->buffer->name .= $char;
         return self::$CLASS;

@@ -65,7 +65,7 @@ class Parser {
             case null:
                 return $state->onEndOfInput($char);
             default:
-                return $state->onElse($char);
+                return $state->onOther($char);
         }
     }
 

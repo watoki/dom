@@ -11,16 +11,26 @@ abstract class State {
         $this->buffer = $buffer;
     }
 
-    abstract public function onLessThan($char);
+    abstract public function onOther($char);
 
-    abstract public function onGreaterThan($char);
+    public function onLessThan($char) {
+        return $this->onOther($char);
+    }
 
-    abstract public function onSlash($char);
+    public function onGreaterThan($char) {
+        return $this->onOther($char);
+    }
 
-    abstract public function onSpace($char);
+    public function onSlash($char) {
+        return $this->onOther($char);
+    }
 
-    abstract public function onEndOfInput($char);
+    public function onSpace($char) {
+        return $this->onOther($char);
+    }
 
-    abstract public function onElse($char);
+    public function onEndOfInput($char) {
+        return $this->onOther($char);
+    }
 
 }
