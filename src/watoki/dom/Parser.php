@@ -14,6 +14,9 @@ class Parser {
      */
     public $root;
 
+    /**
+     * @var string
+     */
     private $content;
 
     /**
@@ -72,7 +75,7 @@ class Parser {
             case "\t":
                 return $state->onWhiteSpace($char);
             case null:
-                return $state->onEndOfInput($char);
+                return $state->onEndOfInput();
             default:
                 return $state->onOther($char);
         }

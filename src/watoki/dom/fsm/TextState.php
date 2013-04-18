@@ -3,27 +3,21 @@ namespace watoki\dom\fsm;
  
 use watoki\dom\Text;
 
-class TextState extends State {
+class TextState extends NullState {
 
     public static $CLASS = __CLASS__;
 
     public function onLessThan($char) {
-        $element = new Text($this->buffer->text);
-        $this->buffer->element->getChildren()->append($element);
-        $this->buffer->potentialParents[] = $element;
-        $this->buffer->text = $char;
-        return BeginState::$CLASS;
+        $this->pushText($char);
+        return parent::onLessThan($char);
     }
 
-    public function onEndOfInput($char) {
-        $element = new Text($this->buffer->text);
-        $this->buffer->element->getChildren()->append($element);
-        $this->buffer->potentialParents[] = $element;
-        return TextState::$CLASS;
+    public function onEndOfInput() {
+        $this->pushText();
     }
 
-    public function onOther($char) {
-        $this->buffer->text .= $char;
-        return TextState::$CLASS;
+    protected function pushText() {
+        $this->buffer->element->getChildren()->append(new Text($this->buffer->text));
+        $this->buffer->text = '';
     }
 }

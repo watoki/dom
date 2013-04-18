@@ -4,22 +4,16 @@ namespace watoki\dom\fsm;
 use watoki\dom\Element;
 use watoki\dom\Text;
 
-class ElementState extends State {
+class ElementState extends TextState {
 
     public static $CLASS = __CLASS__;
 
-    public function onLessThan($char) {
-        $this->buffer->element->getChildren()->append(new Text($this->buffer->text));
-        $this->buffer->text = '';
-        return BeginState::$CLASS;
+    public function onSlash($char) {
+        return ElementCloseState::$CLASS;
     }
 
     public function onGreaterThan($char) {
-        $element = new Element($this->buffer->name, $this->buffer->attributes);
-        $this->buffer->element->getChildren()->append($element);
-        $this->buffer->text = '';
-        $this->buffer->name = '';
-        $this->buffer->potentialParents[] = $element;
+        $this->buffer->element = $this->appendElement();
         return NullState::$CLASS;
     }
 
@@ -31,5 +25,13 @@ class ElementState extends State {
 
     public function onWhiteSpace($char) {
         return self::$CLASS;
+    }
+
+    protected function appendElement() {
+        $element = new Element($this->buffer->name, $this->buffer->attributes);
+        $this->buffer->element->getChildren()->append($element);
+        $this->buffer->text = '';
+        $this->buffer->name = '';
+        return $element;
     }
 }

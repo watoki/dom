@@ -7,11 +7,7 @@ class NullState extends State {
 
     public function onLessThan($char) {
         $this->buffer->text .= $char;
-        return BeginState::$CLASS;
-    }
-
-    public function onEndOfInput($char) {
-        return self::$CLASS;
+        return ElementBeginState::$CLASS;
     }
 
     public function onOther($char) {

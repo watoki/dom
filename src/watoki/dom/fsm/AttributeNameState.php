@@ -15,7 +15,7 @@ class AttributeNameState extends State {
 
     public function onSlash($char) {
         $this->buffer->attributes->set($this->buffer->attributeName, $this->buffer->attributeValue);
-        return EndState::$CLASS;
+        return ElementCloseState::$CLASS;
     }
 
     public function onEquals($char) {

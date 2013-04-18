@@ -6,73 +6,73 @@ class ParseNodeTest extends Test {
     function testTextNode() {
         $this->when->iParse('Hello World');
         $this->then->theResultShouldBe('[
-            { "content":"Hello World" }
-        ]');
-    }
-
-    function testUnclosedElement() {
-        $this->when->iParse('<unclosed>');
-        $this->then->theResultShouldBe('[
-            { "name":"unclosed" }
+            { "text":"Hello World" }
         ]');
     }
 
     function testClosedElement() {
         $this->when->iParse('<closed/>');
         $this->then->theResultShouldBe('[
-            { "name":"closed" }
+            { "element":"closed" }
         ]');
     }
 
     function testEmptyElement() {
         $this->when->iParse('<empty></empty>');
         $this->then->theResultShouldBe('[
-            { "name":"empty" }
+            { "element":"empty" }
         ]');
     }
 
-    function testUnclosedAndClosed() {
-        $this->when->iParse('<one><two/>');
+    function testEmptyAndClosed() {
+        $this->when->iParse('<one></one><two/>');
         $this->then->theResultShouldBe('[
-            { "name":"one" },
-            { "name":"two" }
+            { "element":"one" },
+            { "element":"two" }
+        ]');
+    }
+
+    function testUnclosedElement() {
+        $this->when->iTryToParse('<unclosed>');
+        $this->then->theResultShouldBe('[
+            { "element":"unclosed" }
         ]');
     }
 
     function testUnmatched() {
         $this->when->iTryToParse('<one></two>');
-        $this->then->anExceptionShouldBeThrownContaining('two');
+        $this->then->anExceptionShouldBeThrownContaining('one');
     }
 
     function testMalFormed() {
-        $this->when->iParse('<one<two/>>');
+        $this->when->iParse('<one<two/>/>');
         $this->then->theResultShouldBe('[
-            { "content":"<one" },
-            { "name":"two" },
-            { "content":">" }
+            { "text":"<one" },
+            { "element":"two" },
+            { "text":"/>" }
         ]');
     }
 
     function testMalFormedWithSpace() {
-        $this->when->iParse('<one <two/>>');
+        $this->when->iParse('<one <two/>/>');
         $this->then->theResultShouldBe('[
-            { "content":"<one " },
-            { "name":"two" },
-            { "content":">" }
+            { "text":"<one " },
+            { "element":"two" },
+            { "text":"/>" }
         ]');
     }
 
     function testStartsWithSpace() {
-        $this->when->iParse('< div>');
+        $this->when->iParse('< div/>');
         $this->then->theResultShouldBe('[
-            { "content":"< div>" }
+            { "text":"< div/>" }
         ]');
     }
 
     function testCaseSensitive() {
         $this->when->iParse('<Element></Element>');
         $this->then->theResultShouldBe('[
-            { "name":"Element" }
+            { "element":"Element" }
         ]');
     }
 

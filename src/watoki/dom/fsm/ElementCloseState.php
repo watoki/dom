@@ -1,16 +1,12 @@
 <?php
 namespace watoki\dom\fsm;
- 
-use watoki\dom\Element;
 
-class EndState extends State {
+class ElementCloseState extends ElementState {
 
     public static $CLASS = __CLASS__;
 
     public function onGreaterThan($char) {
-        $this->buffer->element->getChildren()->append(new Element($this->buffer->name));
-        $this->buffer->text = '';
-        $this->buffer->name = '';
+        $this->appendElement();
         return NullState::$CLASS;
     }
 

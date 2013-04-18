@@ -1,22 +1,21 @@
 <?php
 namespace watoki\dom\fsm;
  
-class BeginState extends State {
+class ElementBeginState extends TextState {
 
     public static $CLASS = __CLASS__;
 
     public function onSlash($char) {
-        return ClosingState::$CLASS;
+        return ClosingElementState::$CLASS;
     }
 
     public function onWhiteSpace($char) {
-        $this->buffer->text .= $char;
-        return TextState::$CLASS;
+        return parent::onOther($char);
     }
 
     public function onOther($char) {
-        $this->buffer->text .= $char;
+        parent::onOther($char);
         $this->buffer->name = $char;
-        return NameState::$CLASS;
+        return ElementNameState::$CLASS;
     }
 }

@@ -4,12 +4,23 @@ namespace spec\watoki\dom;
 class ParseChildrenTest extends Test {
 
     function testChildren() {
-        $this->when->iParse('<father><son><daughter></father>');
+        $this->when->iParse('<father><son/><daughter/></father>');
         $this->then->theResultShouldBe('[
-            {   "name":"father",
+            {   "element":"father",
                 "children":[
-                    { "name":"son" },
-                    { "name":"daughter" }
+                    { "element":"son" },
+                    { "element":"daughter" }
+                ]
+            }
+        ]');
+    }
+
+    function testEmptyChild() {
+        $this->when->iTryToParse('<one><two></two></one>');
+        $this->then->theResultShouldBe('[
+            {   "element":"one",
+                "children":[
+                    { "element":"two" }
                 ]
             }
         ]');
@@ -18,22 +29,22 @@ class ParseChildrenTest extends Test {
     function testTextChild() {
         $this->when->iParse('<text>Some Text</text>');
         $this->then->theResultShouldBe('[
-            {   "name":"text",
+            {   "element":"text",
                 "children":[
-                    { "content":"Some Text" }
+                    { "text":"Some Text" }
                 ]
             }
         ]');
     }
 
     function testGrandChild() {
-        $this->when->iParse('<one><two><three></two></one>');
+        $this->when->iParse('<one><two><three/></two></one>');
         $this->then->theResultShouldBe('[
-            {   "name":"one",
+            {   "element":"one",
                 "children":[
-                    {   "name":"two",
+                    {   "element":"two",
                         "children":[
-                            { "name":"three" }
+                            { "element":"three" }
                         ]
                     }
                 ]

@@ -29,8 +29,8 @@ abstract class State {
         return $this->onOther($char);
     }
 
-    public function onEndOfInput($char) {
-        return $this->onOther($char);
+    public function onEndOfInput() {
+        return null;
     }
 
     public function onDoubleQuote($char) {

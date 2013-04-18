@@ -1,12 +1,12 @@
 <?php
 namespace watoki\dom\fsm;
  
-class ClosingState extends State {
+class ClosingElementState extends State {
 
     public static $CLASS = __CLASS__;
 
     public function onOther($char) {
         $this->buffer->name .= $char;
-        return ClosingNameState::$CLASS;
+        return ClosingElementNameState::$CLASS;
     }
 }

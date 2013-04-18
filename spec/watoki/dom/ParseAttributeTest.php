@@ -4,9 +4,9 @@ namespace spec\watoki\dom;
 class ParseAttributeTest extends Test {
 
     function testNoValue() {
-        $this->when->iParse('<novalue empty>');
+        $this->when->iParse('<novalue empty/>');
         $this->then->theResultShouldBe('[
-            {   "name":"novalue",
+            {   "element":"novalue",
                 "attributes":[
                     {   "name":"empty",
                         "value":null
@@ -17,9 +17,9 @@ class ParseAttributeTest extends Test {
     }
 
     function testNoQuotes() {
-        $this->when->iParse("<none some=thing>");
+        $this->when->iParse("<none some=thing/>");
         $this->then->theResultShouldBe('[
-            {   "name":"none",
+            {   "element":"none",
                 "attributes":[
                     {   "name":"some",
                         "value":"thing"
@@ -30,9 +30,9 @@ class ParseAttributeTest extends Test {
     }
 
     function testDoubleQuotes() {
-        $this->when->iParse('<hasvalue value="something">');
+        $this->when->iParse('<hasvalue value="something"/>');
         $this->then->theResultShouldBe('[
-            {   "name":"hasvalue",
+            {   "element":"hasvalue",
                 "attributes":[
                     {   "name":"value",
                         "value":"something"
@@ -43,9 +43,9 @@ class ParseAttributeTest extends Test {
     }
 
     function testEmptyValue() {
-        $this->when->iParse('<empty value="">');
+        $this->when->iParse('<empty value=""/>');
         $this->then->theResultShouldBe('[
-            {   "name":"empty",
+            {   "element":"empty",
                 "attributes":[
                     {   "name":"value",
                         "value":""
@@ -56,9 +56,9 @@ class ParseAttributeTest extends Test {
     }
 
     function testSingleQuotes() {
-        $this->when->iParse("<single some='thing'>");
+        $this->when->iParse("<single some='thing'/>");
         $this->then->theResultShouldBe('[
-            {   "name":"single",
+            {   "element":"single",
                 "attributes":[
                     {   "name":"some",
                         "value":"thing"
@@ -69,9 +69,9 @@ class ParseAttributeTest extends Test {
     }
 
     function testMultiple() {
-        $this->when->iParse('<many uno="one" dos="two">');
+        $this->when->iParse('<many uno="one" dos="two"/>');
         $this->then->theResultShouldBe('[
-            {   "name":"many",
+            {   "element":"many",
                 "attributes":[
                     {   "name":"uno",
                         "value":"one"
@@ -85,12 +85,12 @@ class ParseAttributeTest extends Test {
     }
 
     function testQuotedElement() {
-        $this->when->iParse('<quoted element="<value>">');
+        $this->when->iParse('<quoted element="<value/>"/>');
         $this->then->theResultShouldBe('[
-            {   "name":"quoted",
+            {   "element":"quoted",
                 "attributes":[
                     {   "name":"element",
-                        "value":"<value>"
+                        "value":"<value/>"
                     }
                 ]
             }
@@ -98,16 +98,16 @@ class ParseAttributeTest extends Test {
     }
 
     function testUnquotedElement() {
-        $this->when->iParse('<unquoted element=<value>>');
+        $this->when->iParse('<unquoted element=<value/>>');
         $this->then->theResultShouldBe('[
-            {   "name":"unquoted",
+            {   "element":"unquoted",
                 "attributes":[
                     {   "name":"element",
                         "value":"<value"
                     }
                 ]
             },
-            {   "content":">"
+            {   "text":">"
             }
         ]');
     }

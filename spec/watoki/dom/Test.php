@@ -80,16 +80,12 @@ class Test_Then {
         $this->test->assertEquals(json_decode($json, true), $results);
     }
 
-    /**
-     * @param $node
-     * @return array
-     */
     private function convertNode($node) {
         if ($node instanceof Text) {
-            return array('content' => $node->getContent());
+            return array('text' => $node->getContent());
         } else if ($node instanceof Element) {
             $result = array(
-                'name' => $node->getName()
+                'element' => $node->getName()
             );
 
             if (!$node->getAttributes()->isEmpty()) {
