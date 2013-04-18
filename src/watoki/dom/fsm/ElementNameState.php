@@ -1,8 +1,5 @@
 <?php
 namespace watoki\dom\fsm;
- 
-use watoki\dom\Element;
-use watoki\dom\Text;
 
 class ElementNameState extends ElementState {
 
@@ -11,6 +8,10 @@ class ElementNameState extends ElementState {
     public function onWhiteSpace($char) {
         $this->buffer->text .= $char;
         return ElementState::$CLASS;
+    }
+
+    public function onAlphaNumeric($char) {
+        return $this->onOther($char);
     }
 
     public function onOther($char) {

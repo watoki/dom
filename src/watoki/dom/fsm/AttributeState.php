@@ -13,6 +13,10 @@ class AttributeState extends ElementState {
         return parent::onSlash($char);
     }
 
+    public function onAlphaNumeric($char) {
+        return $this->onOther($char);
+    }
+
     public function onWhiteSpace($char) {
         $this->setAttribute();
         return parent::onWhiteSpace($char);

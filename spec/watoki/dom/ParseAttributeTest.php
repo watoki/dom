@@ -118,4 +118,11 @@ class ParseAttributeTest extends ParseTest {
         ]');
     }
 
+    function testNonAlphaNumericName() {
+        $this->when->iParse('<e =value/>');
+        $this->then->theResultShouldBe('[
+            { "text":"<e =value/>" }
+        ]');
+    }
+
 }

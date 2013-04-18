@@ -10,6 +10,10 @@ class ElementCloseState extends ElementState {
         return NullState::$CLASS;
     }
 
+    public function onAlphaNumeric($char) {
+        return $this->onOther($char);
+    }
+
     public function onOther($char) {
         return self::$CLASS;
     }
