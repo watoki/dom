@@ -69,10 +69,16 @@ class ParseAttributeTest extends ParseTest {
     }
 
     function testMultiple() {
-        $this->when->iParse('<many uno="one" dos="two"/>');
+        $this->when->iParse('<many novalue cero=zero uno=\'one\' dos="two"/>');
         $this->then->theResultShouldBe('[
             {   "element":"many",
                 "attributes":[
+                    {   "name":"novalue",
+                        "value":null
+                    },
+                    {   "name":"cero",
+                        "value":"zero"
+                    },
                     {   "name":"uno",
                         "value":"one"
                     },

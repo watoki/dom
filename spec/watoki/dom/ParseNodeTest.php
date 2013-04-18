@@ -69,6 +69,13 @@ class ParseNodeTest extends ParseTest {
         ]');
     }
 
+    function testStartsWithNoneLetter() {
+        $this->when->iParse('<!not an element>');
+        $this->then->theResultShouldBe('[
+            { "text":"<!not an element>" }
+        ]');
+    }
+
     function testCaseSensitive() {
         $this->when->iParse('<Element></Element>');
         $this->then->theResultShouldBe('[

@@ -45,4 +45,8 @@ abstract class State {
         return $this->onOther($char);
     }
 
+    public function onAlphaNumeric($char) {
+        return $this->onOther($char);
+    }
+
 }

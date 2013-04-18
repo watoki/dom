@@ -77,7 +77,11 @@ class Parser {
             case null:
                 return $state->onEndOfInput();
             default:
-                return $state->onOther($char);
+                if (ctype_alnum($char)) {
+                    return $state->onAlphaNumeric($char);
+                } else {
+                    return $state->onOther($char);
+                }
         }
     }
 

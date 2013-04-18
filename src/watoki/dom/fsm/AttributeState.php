@@ -13,6 +13,11 @@ class AttributeState extends ElementState {
         return parent::onSlash($char);
     }
 
+    public function onWhiteSpace($char) {
+        $this->setAttribute();
+        return parent::onWhiteSpace($char);
+    }
+
     protected function setAttribute() {
         $this->buffer->attributes->set($this->buffer->attributeName, $this->buffer->attributeValue);
         $this->buffer->attributeName = '';
