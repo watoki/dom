@@ -1,7 +1,7 @@
 <?php
 namespace spec\watoki\dom;
 
-class ParseAttributeTest extends Test {
+class ParseAttributeTest extends ParseTest {
 
     function testNoValue() {
         $this->when->iParse('<novalue empty/>');

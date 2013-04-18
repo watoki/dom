@@ -1,7 +1,7 @@
 <?php
 namespace spec\watoki\dom;
 
-class ParseChildrenTest extends Test {
+class ParseChildrenTest extends ParseTest {
 
     function testChildren() {
         $this->when->iParse('<father><son/><daughter/></father>');

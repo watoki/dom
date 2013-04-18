@@ -1,12 +1,6 @@
 <?php
 namespace spec\watoki\dom;
 
-use watoki\collections\Liste;
-use watoki\dom\Element;
-use watoki\dom\Node;
-use watoki\dom\Parser;
-use watoki\dom\Text;
-
 /**
  * @property Test_Given given
  * @property Test_When when
@@ -16,12 +10,16 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         foreach (array('given', 'when', 'then') as $steps) {
-            $class = get_class($this) . '_' . ucfirst($steps);
-            if (class_exists($class)) {
-                $this->$steps = new $class($this);
-            } else {
-                $class = __CLASS__ . '_' . ucfirst($steps);
-                $this->$steps = new $class($this);
+            $testClass = get_class($this);
+            while ($testClass) {
+                $class = $testClass . '_' . ucfirst($steps);
+                if (class_exists($class)) {
+                    $this->$steps = new $class($this);
+                    break;
+                }
+
+                $refl = new \ReflectionClass($testClass);
+                $testClass = $refl->getParentClass()->getName();
             }
         }
     }
@@ -38,11 +36,6 @@ class Test_Given {
 class Test_When {
 
     /**
-     * @var Liste|Node[]
-     */
-    public $nodes;
-
-    /**
      * @var \Exception|null
      */
     public $caught;
@@ -51,66 +44,12 @@ class Test_When {
         $this->test = $test;
     }
 
-    public function iParse($string) {
-        $parser = new Parser($string);
-        $this->nodes = $parser->getNodes();
-    }
-
-    public function iTryToParse($string) {
-        try {
-            $this->iParse($string);
-        } catch (\Exception $e) {
-            $this->caught = $e;
-        }
-    }
-
 }
 
 class Test_Then {
 
     function __construct(Test $test) {
         $this->test = $test;
-    }
-
-    public function theResultShouldBe($json) {
-        $results = array();
-        foreach ($this->test->when->nodes as $node) {
-            $results[] = $this->convertNode($node);
-        }
-        $this->test->assertEquals(json_decode($json, true), $results);
-    }
-
-    private function convertNode($node) {
-        if ($node instanceof Text) {
-            return array('text' => $node->getContent());
-        } else if ($node instanceof Element) {
-            $result = array(
-                'element' => $node->getName()
-            );
-
-            if (!$node->getAttributes()->isEmpty()) {
-                $attributes = array();
-                foreach ($node->getAttributes() as $key => $value) {
-                    $attributes[] = array(
-                        'name' => $key,
-                        'value' => $value
-                    );
-                }
-                $result['attributes'] = $attributes;
-            }
-
-            if (!$node->getChildren()->isEmpty()) {
-                $children = array();
-                foreach ($node->getChildren() as $child) {
-                    $children[] = $this->convertNode($child);
-                }
-                $result['children'] = $children;
-            }
-
-            return $result;
-        }
-
-        throw new \Exception;
     }
 
     public function anExceptionShouldBeThrownContaining($msg) {

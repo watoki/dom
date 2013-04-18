@@ -1,7 +1,7 @@
 <?php
 namespace spec\watoki\dom;
 
-class ParseNodeTest extends Test {
+class ParseNodeTest extends ParseTest {
 
     function testTextNode() {
         $this->when->iParse('Hello World');
