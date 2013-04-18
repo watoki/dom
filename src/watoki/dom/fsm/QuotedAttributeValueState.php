@@ -1,19 +1,20 @@
 <?php
 namespace watoki\dom\fsm;
 
-abstract class QuotedAttributeValueState extends State {
+abstract class QuotedAttributeValueState extends AttributeValueState {
 
     public static $CLASS = __CLASS__;
 
-    public function onOther($char) {
-        $this->buffer->attributeValue .= $char;
-        return static::$CLASS;
+    public function onGreaterThan($char) {
+        return $this->onOther($char);
     }
 
-    protected function onQuote($char) {
-        $this->buffer->attributes->set($this->buffer->attributeName, $this->buffer->attributeValue);
-        $this->buffer->attributeName = '';
-        $this->buffer->attributeValue = '';
+    public function onSlash($char) {
+        return $this->onOther($char);
+    }
+
+    protected function onQuote() {
+        parent::setAttribute();
         return ElementState::$CLASS;
     }
 

@@ -1,25 +1,17 @@
 <?php
 namespace watoki\dom\fsm;
- 
-use watoki\dom\Element;
 
-class AttributeValueState extends State {
+class AttributeValueState extends AttributeState {
 
     public static $CLASS = __CLASS__;
 
-    public function onOther($char) {
-        $this->buffer->attributeValue .= $char;
-        return self::$CLASS;
+    public function onLessThan($char) {
+        return $this->onOther($char);
     }
 
-    public function onGreaterThan($char) {
-        $this->buffer->attributes->set($this->buffer->attributeName, $this->buffer->attributeValue);
-        $this->buffer->element->getChildren()->append(new Element($this->buffer->name, $this->buffer->attributes));
-        $this->buffer->attributeName = '';
-        $this->buffer->attributeValue = '';
-        $this->buffer->name = '';
-        $this->buffer->text = '';
-        return NullState::$CLASS;
+    public function onOther($char) {
+        $this->buffer->attributeValue .= $char;
+        return static::$CLASS;
     }
 
     public function onDoubleQuote($char) {
