@@ -64,10 +64,10 @@ class ParseTest_Then extends Test_Then {
 
             if (!$node->getAttributes()->isEmpty()) {
                 $attributes = array();
-                foreach ($node->getAttributes() as $key => $value) {
+                foreach ($node->getAttributes() as $attribute) {
                     $attributes[] = array(
-                        'name' => $key,
-                        'value' => $value
+                        'name' => $attribute->getName(),
+                        'value' => $attribute->getValue()
                     );
                 }
                 $result['attributes'] = $attributes;

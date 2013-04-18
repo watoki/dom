@@ -1,6 +1,8 @@
 <?php
 namespace watoki\dom\fsm;
 
+use watoki\dom\Attribute;
+
 class AttributeState extends ElementState {
 
     public function onGreaterThan($char) {
@@ -23,9 +25,11 @@ class AttributeState extends ElementState {
     }
 
     protected function setAttribute() {
-        $this->buffer->attributes->set($this->buffer->attributeName, $this->buffer->attributeValue);
+        $attribute = new Attribute($this->buffer->attributeName, $this->buffer->attributeValue);
+        $this->buffer->attributes->append($attribute);
         $this->buffer->attributeName = '';
         $this->buffer->attributeValue = '';
+        return $attribute;
     }
 
 }

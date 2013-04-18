@@ -30,18 +30,31 @@ class Printer {
     private function printElement(Element $node) {
         $out = '<' . $node->getName();
 
-        foreach ($node->getAttributes() as $name => $value) {
-            $out .= ' ' . $name;
+        foreach ($node->getAttributes() as $attribute) {
+            $out .= ' ' . $attribute->getName();
 
-            if ($value !== null) {
-                $out .= '="' . $value . '"';
+            if ($attribute->getValue() !== null) {
+                $quotes = $this->printQuotes($attribute->getQuoting());
+                $out .= '=' . $quotes . $attribute->getValue() . $quotes;
             }
         }
 
-        if ($node->getChildren()->isEmpty()) {
-            return $out . '/>';
-        } else {
+        if (!$node->getChildren()->isEmpty() || $node->hasClosingTag()) {
             return $out . '>' . $this->printNodes($node->getChildren()) . '</' . $node->getName() . '>';
+        } else {
+            return $out . '/>';
+        }
+    }
+
+    private function printQuotes($quoting) {
+        switch ($quoting) {
+            case Attribute::QUOTE_NONE:
+                return '';
+            case Attribute::QUOTE_SINGLE:
+                return "'";
+            case Attribute::QUOTE_DOUBLE:
+            default:
+                return '"';
         }
     }
 

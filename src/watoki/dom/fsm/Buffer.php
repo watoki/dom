@@ -1,7 +1,8 @@
 <?php
 namespace watoki\dom\fsm;
  
-use watoki\collections\Map;
+use watoki\collections\Liste;
+use watoki\dom\Attribute;
 use watoki\dom\Element;
 
 class Buffer {
@@ -27,12 +28,12 @@ class Buffer {
     public $attributeValue;
 
     /**
-     * @var Map|string[]|null[]
+     * @var Liste|Attribute[]
      */
     public $attributes;
 
     function __construct() {
-        $this->attributes = new Map();
+        $this->attributes = new Liste();
     }
 
 }

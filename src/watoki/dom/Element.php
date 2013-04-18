@@ -2,7 +2,6 @@
 namespace watoki\dom;
  
 use watoki\collections\Liste;
-use watoki\collections\Map;
 use watoki\collections\events\ListCreateEvent;
 
 class Element extends Node {
@@ -11,13 +10,18 @@ class Element extends Node {
 
     private $name;
 
+    /**
+     * @var \watoki\collections\Liste|Attribute[]
+     */
     private $attributes;
 
     private $children;
 
-    function __construct($name, Map $attributes = null) {
+    private $hasClosingTag = false;
+
+    function __construct($name, Liste $attributes = null) {
         $this->name = $name;
-        $this->attributes = $attributes ?: new Map();
+        $this->attributes = $attributes ?: new Liste();
         $this->children = new Liste();
 
         $that = $this;
@@ -40,10 +44,40 @@ class Element extends Node {
     }
 
     /**
-     * @return Map
+     * @return Liste|Attribute[]
      */
     public function getAttributes() {
         return $this->attributes;
+    }
+
+    /**
+     * @param $name
+     * @return null|\watoki\dom\Attribute
+     */
+    public function getAttribute($name) {
+        foreach ($this->attributes as $attribute) {
+            if ($attribute->getName() == $name) {
+                return $attribute;
+            }
+        }
+        return null;
+    }
+
+    public function setAttribute($name, $value) {
+        $attribute = $this->getAttribute($name);
+        if (!$attribute) {
+            $this->attributes->append(new Attribute($name, $value));
+        } else {
+            $attribute->setValue($value);
+        }
+    }
+
+    public function hasClosingTag() {
+        return $this->hasClosingTag;
+    }
+
+    public function setHasClosingTag($has) {
+        $this->hasClosingTag = $has;
     }
 
 }

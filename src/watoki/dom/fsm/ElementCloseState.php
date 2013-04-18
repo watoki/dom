@@ -6,7 +6,8 @@ class ElementCloseState extends ElementState {
     public static $CLASS = __CLASS__;
 
     public function onGreaterThan($char) {
-        $this->appendElement();
+        $element = $this->appendElement();
+        $element->setHasClosingTag(false);
         return NullState::$CLASS;
     }
 

@@ -10,6 +10,7 @@ class ClosingElementState extends TextState {
             throw new \Exception("Unmatched elements: {$this->buffer->element->getName()} and {$this->buffer->name}");
         }
 
+        $this->buffer->element->setHasClosingTag(true);
         $this->buffer->element = $this->buffer->element->getParent();
         $this->buffer->name = '';
         $this->buffer->text = '';

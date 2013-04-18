@@ -13,8 +13,9 @@ abstract class QuotedAttributeValueState extends AttributeValueState {
         return $this->onOther($char);
     }
 
-    protected function onQuote() {
-        parent::setAttribute();
+    protected function onQuote($quoting) {
+        $attribute = parent::setAttribute();
+        $attribute->setQuoting($quoting);
         return ElementState::$CLASS;
     }
 

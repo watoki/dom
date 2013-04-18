@@ -27,7 +27,7 @@ class PrinterTest extends Test {
 
     function testEmptyElement() {
         $this->when->iPrintTheMarkup('<element></element>');
-        $this->then->itShouldPrint('<element/>');
+        $this->then->itShouldPrint('<element></element>');
     }
 
     function testChildren() {
@@ -49,8 +49,8 @@ class PrinterTest extends Test {
     }
 
     function testAttributes() {
-        $this->when->iPrintTheMarkup('<element empty unquoted=value quoted="value"/>');
-        $this->then->itShouldPrint('<element empty unquoted="value" quoted="value"/>');
+        $this->when->iPrintTheMarkup('<element empty unquoted=value single=\'quoted\' quoted="value"/>');
+        $this->then->itShouldPrint('<element empty unquoted=value single=\'quoted\' quoted="value"/>');
     }
 
 }
