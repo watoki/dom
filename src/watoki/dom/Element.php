@@ -34,7 +34,7 @@ class Element extends Node {
         $this->children->on(ListDeleteEvent::$CLASSNAME, function (ListDeleteEvent $e) use ($that) {
             /** @var $node Node */
             $node = $e->getElement();
-            $node->setParent(null);
+            $node->unsetParent();
         });
     }
 

@@ -5,17 +5,21 @@ class Text extends Node {
 
     public static $CLASS = __CLASS__;
 
-    private $content;
+    private $text;
 
-    function __construct($content) {
-        $this->content = $content;
+    function __construct($text) {
+        $this->text = $text;
     }
 
     /**
      * @return string
      */
     public function getText() {
-        return $this->content;
+        return $this->text;
+    }
+
+    public function setText($text) {
+        $this->text = $text;
     }
 
 }

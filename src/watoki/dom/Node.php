@@ -18,4 +18,8 @@ class Node {
         $this->parent = $parent;
     }
 
+    public function unsetParent() {
+        $this->parent = null;
+    }
+
 }
