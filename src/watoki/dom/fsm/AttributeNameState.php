@@ -10,7 +10,7 @@ class AttributeNameState extends AttributeState {
     }
 
     public function onOther($char) {
-        $this->buffer->attributeName .= $char;
+        $this->buffer->addToAttributeName($char);
         return self::$CLASS;
     }
 }

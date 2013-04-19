@@ -6,7 +6,7 @@ class ClosingElementNameState extends ClosingElementState {
     public static $CLASS = __CLASS__;
 
     public function onOther($char) {
-        $this->buffer->name .= $char;
+        $this->buffer->addToElementName($char);
         return self::$CLASS;
     }
 }

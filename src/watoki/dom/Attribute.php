@@ -15,7 +15,7 @@ class Attribute {
 
     private $quoting;
 
-    function __construct($name, $value, $quoting = self::QUOTE_NONE) {
+    function __construct($name, $value = null, $quoting = self::QUOTE_NONE) {
         $this->name = $name;
         $this->value = $value;
         $this->quoting = $quoting;

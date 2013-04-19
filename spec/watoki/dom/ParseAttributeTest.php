@@ -125,4 +125,19 @@ class ParseAttributeTest extends ParseTest {
         ]');
     }
 
+    function testWithAndWithout() {
+        $this->when->iParse('<without/><with name="value"/>');
+        $this->then->theResultShouldBe('[
+            {   "element":"without"
+            },
+            {   "element":"with",
+                "attributes":[
+                    {   "name":"name",
+                        "value":"value"
+                    }
+                ]
+            }
+        ]');
+    }
+
 }

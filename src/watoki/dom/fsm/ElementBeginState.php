@@ -15,7 +15,7 @@ class ElementBeginState extends TextState {
 
     public function onAlphaNumeric($char) {
         parent::onOther($char);
-        $this->buffer->name = $char;
+        $this->buffer->addToElementName($char);
         return ElementNameState::$CLASS;
     }
 }

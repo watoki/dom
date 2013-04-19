@@ -17,7 +17,6 @@ class TextState extends NullState {
     }
 
     protected function pushText() {
-        $this->buffer->element->getChildren()->append(new Text($this->buffer->text));
-        $this->buffer->text = '';
+        $this->buffer->pushText();
     }
 }

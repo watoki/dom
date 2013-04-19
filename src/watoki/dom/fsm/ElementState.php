@@ -13,18 +13,18 @@ class ElementState extends TextState {
     }
 
     public function onGreaterThan($char) {
-        $this->buffer->element = $this->appendElement();
+        $this->buffer->pushElement();
         return NullState::$CLASS;
     }
 
     public function onAlphaNumeric($char) {
-        $this->buffer->text .= $char;
-        $this->buffer->attributeName = $char;
+        $this->buffer->addToText($char);
+        $this->buffer->addToAttributeName($char);
         return AttributeNameState::$CLASS;
     }
 
     public function onOther($char) {
-        $this->buffer->text .= $char;
+        $this->buffer->addToText($char);
         return TextState::$CLASS;
     }
 
@@ -33,10 +33,6 @@ class ElementState extends TextState {
     }
 
     protected function appendElement() {
-        $element = new Element($this->buffer->name, $this->buffer->attributes);
-        $this->buffer->element->getChildren()->append($element);
-        $this->buffer->text = '';
-        $this->buffer->name = '';
-        return $element;
+        return $this->buffer->appendElement();
     }
 }

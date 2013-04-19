@@ -6,12 +6,12 @@ class NullState extends State {
     public static $CLASS = __CLASS__;
 
     public function onLessThan($char) {
-        $this->buffer->text .= $char;
+        $this->buffer->addToText($char);
         return ElementBeginState::$CLASS;
     }
 
     public function onOther($char) {
-        $this->buffer->text .= $char;
+        $this->buffer->addToText($char);
         return TextState::$CLASS;
     }
 }

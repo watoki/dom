@@ -10,7 +10,7 @@ class AttributeValueState extends AttributeState {
     }
 
     public function onOther($char) {
-        $this->buffer->attributeValue .= $char;
+        $this->buffer->addToAttributeValue($char);
         return static::$CLASS;
     }
 

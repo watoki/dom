@@ -25,11 +25,7 @@ class AttributeState extends ElementState {
     }
 
     protected function setAttribute() {
-        $attribute = new Attribute($this->buffer->attributeName, $this->buffer->attributeValue);
-        $this->buffer->attributes->append($attribute);
-        $this->buffer->attributeName = '';
-        $this->buffer->attributeValue = '';
-        return $attribute;
+        return $this->buffer->appendAttribute();
     }
 
 }

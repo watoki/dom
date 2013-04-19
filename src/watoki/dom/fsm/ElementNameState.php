@@ -6,7 +6,7 @@ class ElementNameState extends ElementState {
     public static $CLASS = __CLASS__;
 
     public function onWhiteSpace($char) {
-        $this->buffer->text .= $char;
+        $this->buffer->addToText($char);
         return ElementState::$CLASS;
     }
 
@@ -15,8 +15,8 @@ class ElementNameState extends ElementState {
     }
 
     public function onOther($char) {
-        $this->buffer->text .= $char;
-        $this->buffer->name .= $char;
+        $this->buffer->addToText($char);
+        $this->buffer->addToElementName($char);
         return self::$CLASS;
     }
 }

@@ -31,7 +31,6 @@ class Parser {
 
     function __construct($content) {
         $this->content = $content;
-        $this->buffer = new Buffer();
     }
 
     public function getNodes() {
@@ -43,9 +42,9 @@ class Parser {
 
     private function parse() {
         $root = new Element('root');
+        $this->buffer = new Buffer($root);
 
         $state = $this->getState(NullState::$CLASS);
-        $this->buffer->element = $root;
 
         for ($i = 0; $i < strlen($this->content); $i++) {
             $state = $this->getState($this->input($state, $this->content[$i]));
