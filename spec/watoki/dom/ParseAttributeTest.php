@@ -42,6 +42,19 @@ class ParseAttributeTest extends ParseTest {
         ]');
     }
 
+    function testSpacesInQuotedAttribute() {
+        $this->when->iParse('<spaces that="has a space"/>');
+        $this->then->theResultShouldBe('[
+            {   "element":"spaces",
+                "attributes":[
+                    {   "name":"that",
+                        "value":"has a space"
+                    }
+                ]
+            }
+        ]');
+    }
+
     function testEmptyValue() {
         $this->when->iParse('<empty value=""/>');
         $this->then->theResultShouldBe('[

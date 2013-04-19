@@ -45,13 +45,15 @@ class ManipulationTest extends Test {
         $this->given->theMarkUp('<dad><child prop=thing><other>Stuff</other></child></dad>');
 
         /** @var Element $copy */
-        $copy = $this->when->nodes[0]->getChildren()->first()->copy();
+        $dad = $this->when->nodes[0];
+        $copy = $dad->getChildren()->first()->copy();
         $copy->setName('brother');
         $copy->setAttribute('prop', 'thang');
         $copy->getChildren()->first()->getChildren()->first()->setText('Other');
-        $this->when->nodes[0]->getChildren()->append($copy);
+        $dad->getChildren()->append($copy);
 
         $this->then->itShouldBe('<dad><child prop=thing><other>Stuff</other></child><brother prop=thang><other>Other</other></brother></dad>');
+        $this->assertTrue($copy->getChildren()->first()->getParent() === $copy);
     }
 
 }

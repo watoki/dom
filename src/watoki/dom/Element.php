@@ -76,7 +76,7 @@ class Element extends Node {
     public function setAttribute($name, $value) {
         $attribute = $this->getAttribute($name);
         if (!$attribute) {
-            $this->attributes->append(new Attribute($name, $value));
+            $this->attributes->append(new Attribute($name, $value, Attribute::QUOTE_DOUBLE));
         } else {
             $attribute->setValue($value);
         }
@@ -92,7 +92,7 @@ class Element extends Node {
 
     public function copy() {
         $copy = new Element($this->name, $this->getAttributesCopy());
-        $copy->children = $this->copyChildren();
+        $this->copyChildren($copy);
         $copy->hasClosingTag = $this->hasClosingTag;
         return $copy;
     }
@@ -105,16 +105,14 @@ class Element extends Node {
         return $copy;
     }
 
-    private function copyChildren() {
-        $copy = new Liste();
+    private function copyChildren(Element $copy) {
         foreach ($this->children as $child) {
             if ($child instanceof Element) {
-                $copy->append($child->copy());
+                $copy->getChildren()->append($child->copy());
             } else if ($child instanceof Text) {
-                $copy->append(new Text($child->getText()));
+                $copy->getChildren()->append(new Text($child->getText()));
             }
         }
-        return $copy;
     }
 
 }
