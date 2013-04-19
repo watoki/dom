@@ -14,13 +14,19 @@ class Printer {
     public function printNodes(Liste $nodes) {
         $out = '';
         foreach ($nodes as $node) {
-            if ($node instanceof Text) {
-                $out .= $this->printText($node);
-            } else if ($node instanceof Element) {
-                $out .= $this->printElement($node);
-            }
+            $out .= $this->printNode($node);
         }
         return $out;
+    }
+
+    public function printNode(Node $node) {
+        if ($node instanceof Text) {
+            return $this->printText($node);
+        } else if ($node instanceof Element) {
+            return $this->printElement($node);
+        } else {
+            throw new \Exception('Unknown node: ' . get_class($node));
+        }
     }
 
     private function printText(Text $node) {

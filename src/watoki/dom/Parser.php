@@ -34,10 +34,14 @@ class Parser {
     }
 
     public function getNodes() {
+        return $this->getRoot()->getChildren();
+    }
+
+    private function getRoot() {
         if (!$this->root) {
             $this->root = $this->parse();
         }
-        return $this->root->getChildren();
+        return $this->root;
     }
 
     private function parse() {
@@ -97,6 +101,10 @@ class Parser {
             $this->statePool[$class] = new $class($this->buffer);
         }
         return $this->statePool[$class];
+    }
+
+    public function findElement($name) {
+        return $this->getRoot()->findChildElement($name);
     }
 
 }

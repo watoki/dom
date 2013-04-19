@@ -115,4 +115,27 @@ class Element extends Node {
         }
     }
 
+    /**
+     * @param $name
+     * @return null|Element
+     */
+    public function findChildElement($name) {
+        foreach ($this->children as $child) {
+            if ($child instanceof Element and $child->getName() == $name) {
+                return $child;
+            }
+        }
+        return null;
+    }
+
+    public function getChildElements($name = null) {
+        $children = new Liste();
+        foreach ($this->children as $child) {
+            if ($child instanceof Element && ($name === null || $child->getName() == $name)) {
+                $children->append($child);
+            }
+        }
+        return $children;
+    }
+
 }
