@@ -24,7 +24,7 @@ class Printer {
     }
 
     private function printText(Text $node) {
-        return $node->getContent();
+        return $node->getText();
     }
 
     private function printElement(Element $node) {

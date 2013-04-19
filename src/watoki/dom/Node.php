@@ -8,7 +8,7 @@ class Node {
     private $parent;
 
     /**
-     * @return Node
+     * @return Element
      */
     public function getParent() {
         return $this->parent;

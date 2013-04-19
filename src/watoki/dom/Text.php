@@ -14,7 +14,7 @@ class Text extends Node {
     /**
      * @return string
      */
-    public function getContent() {
+    public function getText() {
         return $this->content;
     }
 

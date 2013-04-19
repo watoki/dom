@@ -45,4 +45,8 @@ class Attribute {
         $this->quoting = $quoting;
     }
 
+    public function copy() {
+        return new Attribute($this->name, $this->value, $this->quoting);
+    }
+
 }

@@ -3,6 +3,7 @@ namespace watoki\dom;
  
 use watoki\collections\Liste;
 use watoki\collections\events\ListCreateEvent;
+use watoki\collections\events\ListDeleteEvent;
 
 class Element extends Node {
 
@@ -29,6 +30,11 @@ class Element extends Node {
             /** @var $node Node */
             $node = $e->getElement();
             $node->setParent($that);
+        });
+        $this->children->on(ListDeleteEvent::$CLASSNAME, function (ListDeleteEvent $e) use ($that) {
+            /** @var $node Node */
+            $node = $e->getElement();
+            $node->setParent(null);
         });
     }
 
@@ -82,6 +88,33 @@ class Element extends Node {
 
     public function setHasClosingTag($has) {
         $this->hasClosingTag = $has;
+    }
+
+    public function copy() {
+        $copy = new Element($this->name, $this->getAttributesCopy());
+        $copy->children = $this->copyChildren();
+        $copy->hasClosingTag = $this->hasClosingTag;
+        return $copy;
+    }
+
+    private function getAttributesCopy() {
+        $copy = new Liste();
+        foreach ($this->attributes as $attribute) {
+            $copy->append($attribute->copy());
+        }
+        return $copy;
+    }
+
+    private function copyChildren() {
+        $copy = new Liste();
+        foreach ($this->children as $child) {
+            if ($child instanceof Element) {
+                $copy->append($child->copy());
+            } else if ($child instanceof Text) {
+                $copy->append(new Text($child->getText()));
+            }
+        }
+        return $copy;
     }
 
 }

@@ -56,7 +56,7 @@ class ParseTest_Then extends Test_Then {
 
     private function convertNode($node) {
         if ($node instanceof Text) {
-            return array('text' => $node->getContent());
+            return array('text' => $node->getText());
         } else if ($node instanceof Element) {
             $result = array(
                 'element' => $node->getName()
