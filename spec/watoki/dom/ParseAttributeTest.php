@@ -153,4 +153,20 @@ class ParseAttributeTest extends ParseTest {
         ]');
     }
 
+    function testSpecialCharacters() {
+        $this->when->iParse('<special double="some(special = \'characters\'?)" single=\'Here "Too"\'/>');
+        $this->then->theResultShouldBe('[
+            {   "element":"special",
+                "attributes":[
+                    {   "name":"double",
+                        "value":"some(special = \'characters\'?)"
+                    },
+                    {   "name":"single",
+                        "value":"Here \"Too\""
+                    }
+                ]
+            }
+        ]');
+    }
+
 }

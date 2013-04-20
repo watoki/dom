@@ -17,6 +17,14 @@ abstract class QuotedAttributeValueState extends AttributeValueState {
         return $this->onOther($char);
     }
 
+    public function onSingleQuote($char) {
+        return $this->onOther($char);
+    }
+
+    public function onDoubleQuote($char) {
+        return $this->onOther($char);
+    }
+
     protected function onQuote($quoting) {
         $attribute = parent::setAttribute();
         $attribute->setQuoting($quoting);
