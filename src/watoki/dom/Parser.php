@@ -51,7 +51,12 @@ class Parser {
         $state = $this->getState(NullState::$CLASS);
 
         for ($i = 0; $i < strlen($this->content); $i++) {
-            $state = $this->getState($this->input($state, $this->content[$i]));
+            try {
+                $state = $this->getState($this->input($state, $this->content[$i]));
+            } catch (\Exception $e) {
+                throw new \Exception('Error: "' . $e->getMessage() . '" while parsing near [...]'
+                    . substr($this->content, $i - 70, 140) . '[...]');
+            }
         }
         $this->input($state, null);
 
