@@ -37,7 +37,7 @@ class Parser {
         return $this->getRoot()->getChildren();
     }
 
-    private function getRoot() {
+    public function getRoot() {
         if (!$this->root) {
             $this->root = $this->parse();
         }
