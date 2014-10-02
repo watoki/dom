@@ -73,6 +73,10 @@ class Element extends Node {
         return null;
     }
 
+    /**
+     * @param string $name
+     * @param string $value
+     */
     public function setAttribute($name, $value) {
         $attribute = $this->getAttribute($name);
         if (!$attribute) {
@@ -90,6 +94,9 @@ class Element extends Node {
         $this->hasClosingTag = $has;
     }
 
+    /**
+     * @return Element
+     */
     public function copy() {
         $copy = new Element($this->name, $this->getAttributesCopy());
         $this->copyChildren($copy);
@@ -128,6 +135,10 @@ class Element extends Node {
         return null;
     }
 
+    /**
+     * @param null $name
+     * @return Liste|Element[]
+     */
     public function getChildElements($name = null) {
         $children = new Liste();
         foreach ($this->children as $child) {
