@@ -149,4 +149,12 @@ class Element extends Node {
         return $children;
     }
 
+    public function equals($element) {
+        if (!($element instanceof Element)) {
+            return false;
+        }
+        return $this->name == $element->name
+                && $this->attributes == $element->attributes;
+    }
+
 }
