@@ -29,14 +29,23 @@ class Parser {
      */
     private $buffer;
 
+    /**
+     * @param string $content
+     */
     function __construct($content) {
         $this->content = $content;
     }
 
+    /**
+     * @return \watoki\collections\Liste|Node[]
+     */
     public function getNodes() {
         return $this->getRoot()->getChildren();
     }
 
+    /**
+     * @return Element
+     */
     public function getRoot() {
         if (!$this->root) {
             $this->root = $this->parse();
@@ -108,6 +117,10 @@ class Parser {
         return $this->statePool[$class];
     }
 
+    /**
+     * @param $name
+     * @return null|Element
+     */
     public function findElement($name) {
         return $this->getRoot()->findChildElement($name);
     }
