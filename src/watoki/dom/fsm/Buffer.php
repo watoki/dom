@@ -101,4 +101,11 @@ class Buffer {
         $this->reset();
     }
 
+    /**
+     * @return \watoki\dom\Element
+     */
+    public function getNextElement() {
+        return $this->nextElement;
+    }
+
 }

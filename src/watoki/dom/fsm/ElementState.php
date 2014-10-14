@@ -1,8 +1,7 @@
 <?php
 namespace watoki\dom\fsm;
  
-use watoki\dom\Element;
-use watoki\dom\Text;
+use watoki\dom\Parser;
 
 class ElementState extends TextState {
 
@@ -13,7 +12,12 @@ class ElementState extends TextState {
     }
 
     public function onGreaterThan($char) {
-        $this->buffer->pushElement();
+        if (in_array($this->buffer->getNextElement()->getName(), Parser::$voidElements)) {
+            $element = $this->appendElement();
+            $element->setHasClosingTag(false);
+        } else {
+            $this->buffer->pushElement();
+        }
         return NullState::$CLASS;
     }
 

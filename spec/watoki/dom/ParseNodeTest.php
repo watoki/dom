@@ -83,4 +83,42 @@ class ParseNodeTest extends ParseTest {
         ]');
     }
 
+    function testVoidElements() {
+        $this->when->iParse(
+                '<div>' .
+                '<area>' .
+                '<base>' .
+                '<br>' .
+                '<col>' .
+                '<embed>' .
+                '<hr>' .
+                '<img>' .
+                '<input>' .
+                '<keygen>' .
+                '<link>' .
+                '<meta>' .
+                '<param>' .
+                '<source>' .
+                '<track>' .
+                '<wbr>' .
+                '</div>');
+        $this->then->theResultShouldBe('[{"element":"div","children":[
+            {"element":"area"},
+            {"element":"base"},
+            {"element":"br"},
+            {"element":"col"},
+            {"element":"embed"},
+            {"element":"hr"},
+            {"element":"img"},
+            {"element":"input"},
+            {"element":"keygen"},
+            {"element":"link"},
+            {"element":"meta"},
+            {"element":"param"},
+            {"element":"source"},
+            {"element":"track"},
+            {"element":"wbr"}
+        ]}]');
+    }
+
 }

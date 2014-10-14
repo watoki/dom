@@ -9,6 +9,24 @@ class Parser {
 
     static $CLASS = __CLASS__;
 
+    public static $voidElements = array(
+            "area",
+            "base",
+            "br",
+            "col",
+            "embed",
+            "hr",
+            "img",
+            "input",
+            "keygen",
+            "link",
+            "meta",
+            "param",
+            "source",
+            "track",
+            "wbr"
+    );
+
     /**
      * @var Element
      */
