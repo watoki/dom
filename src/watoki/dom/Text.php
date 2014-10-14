@@ -22,4 +22,8 @@ class Text extends Node {
         $this->text = $text;
     }
 
+    public function equals($other) {
+        return $other instanceof Text && $this->text == $other->text;
+    }
+
 }

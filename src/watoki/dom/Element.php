@@ -149,12 +149,26 @@ class Element extends Node {
         return $children;
     }
 
-    public function equals($element) {
-        if (!($element instanceof Element)) {
+    public function equals($other) {
+        if (!($other instanceof Element) || !parent::equals($other)) {
             return false;
         }
-        return $this->name == $element->name
-                && $this->attributes == $element->attributes;
+
+        $otherChildren = $other->getChildren();
+        $thisChildren = $this->getChildren();
+
+        if ($thisChildren->count() != $otherChildren->count()) {
+            return false;
+        }
+
+        foreach ($thisChildren as $i => $child) {
+            if (!$child->equals($otherChildren[$i])) {
+                return false;
+            }
+        }
+
+        return $this->name == $other->name
+                && $this->attributes == $other->attributes;
     }
 
 }

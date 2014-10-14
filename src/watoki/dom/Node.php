@@ -22,4 +22,8 @@ class Node {
         $this->parent = null;
     }
 
+    public function equals($other) {
+        return $other instanceof Node;
+    }
+
 }
