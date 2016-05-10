@@ -15,10 +15,12 @@ class AttributeValueState extends AttributeState {
     }
 
     public function onDoubleQuote($char) {
+        $this->buffer->addToAttributeValue('');
         return DoubleQuotedAttributeValueState::$CLASS;
     }
 
     public function onSingleQuote($char) {
+        $this->buffer->addToAttributeValue('');
         return SingleQuotedAttributeValueState::$CLASS;
     }
 }
